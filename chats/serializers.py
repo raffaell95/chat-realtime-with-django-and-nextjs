@@ -27,8 +27,8 @@ class ChatSerializer(serializers.ModelSerializer):
     def get_unseen_count(self, chat):
         unseen_count = ChatMessage.objects.filter(
             chat_id=chat.id,
-            viewed_at_isnull=True, 
-            deleted_at_isnull=True
+            viewed_at__isnull=True, 
+            deleted_at__isnull=True
         ).exclude(
             from_user=self.context['user_id']
         ).count()
@@ -37,7 +37,7 @@ class ChatSerializer(serializers.ModelSerializer):
     
     def get_last_message(self, chat):
         last_message = ChatMessage.objects.filter(
-            chat_id=chat.id, deleted_at_isnull=True).order_by('-created_at').first()
+            chat_id=chat.id, deleted_at__isnull=True).order_by('-created_at').first()
         
         if not last_message:
             return None

@@ -12,8 +12,8 @@ from core.socket import socket
 class ChatsView(BaseView):
     def get(self, request):
         chats = Chat.objects.filter(
-            Q(from_user_id=request.user.id) | Q(to_id=request.user_id),
-            deleted_at_isnull=True
+            Q(from_user_id=request.user.id) | Q(to_user_id=request.user.id),
+            deleted_at__isnull=True
         ).order_by('-viewed_at').all()
 
         serializer = ChatSerializer(
@@ -64,7 +64,7 @@ class ChatView(BaseView):
 
         deleted = Chat.objects.filter(
             id=chat_id,
-            deleted_at_isnull=True
+            deleted_at__isnull=True
         ).update(
             deleted_at=now()
         )
