@@ -75,3 +75,11 @@ class ChatMesageView(BaseView):
             name = file.name.split('.')[0]
             extension = file.name.split('.')[-1]
             size = file.size
+
+            if size > 100000000:
+                raise ValidationError('O arquivo dev ter no máximo 100MB')
+
+            file = storage.save(f"{uuid.uuid4()}.{extension}", file)
+            src = storage.url(file)
+
+            
