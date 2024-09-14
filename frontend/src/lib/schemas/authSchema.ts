@@ -7,7 +7,7 @@ export const signInSchema = z.object({
     password: z.string().min(1, { message: "Senha obrigatória" })
 })
 
-export type signInData = z.infer<typeof signInSchema>
+export type SignInData = z.infer<typeof signInSchema>
 
 export const signUpSchema = z.object({
     name: z.string().min(1, {message: "Nome obrigatorio"}).max(80, {message: "Nome muito grande"}),
