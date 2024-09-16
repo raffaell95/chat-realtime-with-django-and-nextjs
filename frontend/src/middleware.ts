@@ -7,4 +7,12 @@ export async function middleware(request: NextRequest){
     if(!request.nextUrl.pathname.startsWith('/auth') && !user){
         return NextResponse.redirect(new URL('/auth/signin', request.url))
     }
+
+    if(request.nextUrl.pathname.startsWith('/auth') && user){
+        return NextResponse.redirect(new URL('/', request.url))
+    }
+}
+
+export const config = {
+    matcher: '/((?!.*\\..*|_next).*)'
 }
