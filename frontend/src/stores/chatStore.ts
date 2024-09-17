@@ -30,4 +30,9 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     loading: false,
     showChatsList: false,
     setShowNewChat: (show) => set({showNewChat: show}),
+    setShowChatsList: (show) => set({showChatsList: show}),
+    setChat: (chat) => chat?.id != get().chat?.id && set({ chat, chatMessages: null }),
+    setChatMessages: (messages) => set({ chatMessages: messages }),
+    setChats: (chats) => set({chats}),
+    setLoading: (loading) => set({ loading })
 }))
