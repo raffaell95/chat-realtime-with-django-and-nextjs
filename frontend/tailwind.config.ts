@@ -55,7 +55,11 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		height: {
+			header: "var(--header-height)",
+			app: "var(--app-height)"
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
