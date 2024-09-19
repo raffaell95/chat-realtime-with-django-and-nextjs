@@ -5,12 +5,13 @@ import { Chat, UpdateChatEvent } from "@/types/Chat"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { socket } from "../Providers"
+import { NewChat } from "./NewChat"
 
 type Props = {
     variant?: "mobile" | "desktop"
 }
 
-export const LeftSide = () => {
+export const LeftSide = ({ variant = "desktop"}: Props) => {
     const { chat: currentChat, chats, setChats, setChat, setShowNewChat } = useChatStore()
     const { user } = userAuthStore()
 
@@ -60,8 +61,12 @@ export const LeftSide = () => {
     }, [currentChat])
 
     return (
-        <div className={`bg-slate-100 dark:bg-slate-900 border-r border-slate-50 dark:border-slate-800 ${variant === "mobile"}`}>
-            
+        <div className={`bg-slate-100 dark:bg-slate-900 border-r border-slate-50 dark:border-slate-800 ${variant === "mobile" ? 'w-auto' : 'w-96'} h-app overflow-auto`}>
+            <NewChat />
+
+            <div className={`bg-slate-100`}>
+
+            </div>
         </div>
     )
 }
