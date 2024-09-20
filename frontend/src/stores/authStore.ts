@@ -12,7 +12,7 @@ export type AuthActions = {
 
 export type AuthStore = AuthState & AuthActions
 
-export const userAuthStore = create<AuthStore>((set) => ({
+export const useAuthStore = create<AuthStore>((set) => ({
     user: null,
     setUser: (user) => set({ user }),
     clearUser: () => set({ user: null })

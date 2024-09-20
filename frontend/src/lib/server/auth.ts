@@ -1,4 +1,4 @@
-"user server"
+"use server"
 
 import { cookies } from "next/headers"
 import { signIn, signUp } from "../requests"

@@ -1,7 +1,7 @@
 import { handleSignOut } from "@/lib/server/auth"
-import { userAuthStore } from "@/stores/authStore"
+import { useAuthStore } from "@/stores/authStore"
 import { useChatStore } from "@/stores/chatStore"
-import { ChevronDown, Link, LogOut, Menu, Moon, Sun, User } from "lucide-react"
+import { ChevronDown, LogOut, Menu, Moon, Sun, User } from "lucide-react"
 import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation"
 import { toast } from "sonner"
@@ -17,10 +17,11 @@ import {
 import { Home } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu"
+import Link from "next/link"
 
 export const Header = () => {
     const { setTheme } = useTheme()
-    const { user, clearUser } = userAuthStore()
+    const { user, clearUser } = useAuthStore()
     const { setChat, showChatsList, setShowChatsList } = useChatStore()
     
     const pathname = usePathname()
