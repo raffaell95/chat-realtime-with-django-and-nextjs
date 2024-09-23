@@ -6,11 +6,13 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar"
 import { cn } from "@/lib/utils"
 
 const Avatar = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root> & {isOnline?: boolean},
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & { isOnline?: boolean }
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & {
+    isOnline?: boolean
+  }
 >(({ className, isOnline = false, ...props }, ref) => (
   <div className="relative">
-    {isOnline && <div className="absolute bg-emerald-400 z-10 rounded-full border-slate-300 size-3 botton-0.5 right-0"></div>}
+    {isOnline && <div className="absolute bg-emerald-400 z-10 rounded-full border-slate-300 size-3 bottom-0.5 right-0" />}
 
     <AvatarPrimitive.Root
       ref={ref}

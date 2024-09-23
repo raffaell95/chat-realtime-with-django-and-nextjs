@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { SignUpData, signUpSchema } from "@/lib/schemas/authSchema"
-import { handleSignUp } from "@/lib/server/auth"
-import { useAuthStore } from "@/stores/authStore"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
+import { SignUpData, signUpSchema } from "@/lib/schemas/authSchema";
+import { handleSignUp } from "@/lib/server/auth";
+import { useAuthStore } from "@/stores/authStore";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import {
     Card,
     CardContent,
@@ -15,10 +15,10 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
-import { Button } from "../ui/button"
-import { Skeleton } from "../ui/skeleton"
-import { Input } from "../ui/input"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Button } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
+import { Input } from "../ui/input";
 
 export const SignUpPage = () => {
     const [loading, setLoading] = useState(false)

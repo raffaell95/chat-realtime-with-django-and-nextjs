@@ -1,35 +1,35 @@
-"use server"
+"use server";
 
-import { cookies } from "next/headers"
-import { signIn, signUp } from "../requests"
-import { SignInData, SignUpData } from "../schemas/authSchema"
-import { User } from "@/types/User"
-import { redirect } from "next/navigation"
+import { SignInData, SignUpData } from "@/lib/schemas/authSchema";
+import { signIn, signUp } from "@/lib/requests";
+import { cookies } from "next/headers";
+import { User } from "@/types/User";
+import { redirect } from "next/navigation";
 
-export const handleSignIn = async(data: SignInData) => {
+export const handleSignIn = async (data: SignInData) => {
     const response = await signIn(data)
 
-    if(response.data){
+    if (response.data) {
         cookies().set({
             name: process.env.NEXT_PUBLIC_AUTH_KEY as string,
             value: response.data.access_token,
             httpOnly: true,
-            maxAge: 86400 * 7
+            maxAge: 86400 * 7, // 7 days
         })
     }
 
     return response
 }
 
-export const handleSignUp = async(data: SignUpData) => {
+export const handleSignUp = async (data: SignUpData) => {
     const response = await signUp(data)
 
-    if(response.data){
+    if (response.data) {
         cookies().set({
             name: process.env.NEXT_PUBLIC_AUTH_KEY as string,
             value: response.data.access_token,
             httpOnly: true,
-            maxAge: 86400 * 7
+            maxAge: 86400 * 7, // 7 days
         })
     }
 
@@ -48,7 +48,7 @@ export const handleGetUser = async () => {
     const jsonResponse = await response.json()
     const userData = jsonResponse.user
 
-    if(userData) return userData as User
+    if (userData) return userData as User
 
     return null
 }

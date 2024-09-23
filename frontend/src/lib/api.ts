@@ -1,9 +1,8 @@
-"use server"
+"use server";
 
-import { APIError } from "@/types/Api"
-import axios, {AxiosError } from "axios"
-import { cookies } from "next/headers"
-
+import { APIError } from "@/types/Api";
+import { cookies } from "next/headers";
+import axios, { AxiosError } from "axios";
 
 type Props = {
     endpoint: string,
@@ -26,19 +25,20 @@ export const api = async <TypeResponse>({
         baseURL: BASE_URL
     })
 
-    if(withAuth){
+    if (withAuth) {
+        /* Getting auth cookie */
         const sessionAuth = cookies().get(process.env.NEXT_PUBLIC_AUTH_KEY as string)
 
-        if(sessionAuth?.value){
+        if (sessionAuth?.value) {
             instance.defaults.headers.common['Authorization'] = `Bearer ${sessionAuth.value}`
         }
     }
 
-    if(withAttachment){
+    if (withAttachment) {
         instance.defaults.headers.common['Content-Type'] = 'multipart/form-data'
     }
 
-    try{
+    try {
         const request = await instance<TypeResponse>(endpoint, {
             method,
             params: method == 'GET' && data,
@@ -48,13 +48,13 @@ export const api = async <TypeResponse>({
         return {
             data: request.data
         }
-    }catch(error){
+    } catch (error) {
         const e = error as AxiosError<APIError>
+
         return {
             error: {
                 message: e.response?.data.detail ?? 'Ocorreu um erro inesperado'
             }
-
         }
     }
 }

@@ -1,44 +1,43 @@
 import { handleSignOut } from "@/lib/server/auth"
 import { useAuthStore } from "@/stores/authStore"
 import { useChatStore } from "@/stores/chatStore"
-import { ChevronDown, LogOut, Menu, Moon, Sun, User } from "lucide-react"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { toast } from "sonner"
 import Logo from "@/assets/logo.svg"
 import Image from "next/image"
-import { Button }  from "@/components/ui/button"
-import { 
+import { Button } from "@/components/ui/button"
+import { Home, Sun, Moon, Menu, ChevronDown, User, LogOut } from "lucide-react"
+import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuTrigger
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Home } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
-import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu"
-import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export const Header = () => {
     const { setTheme } = useTheme()
     const { user, clearUser } = useAuthStore()
     const { setChat, showChatsList, setShowChatsList } = useChatStore()
-    
+
     const pathname = usePathname()
 
     const handleLogOut = () => {
         handleSignOut()
         setChat(null)
         clearUser()
-        toast.success('Deslogado com sucesso!', {position: "top-center"})
+        toast.success('Deslogado com sucesso!', { position: "top-center" })
     }
 
     return (
         <header className="h-header px-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-50 dark:border-slate-800">
-            <nav className="flex items-center justify-between h-full max-w-7x1 mx-auto">
+            <nav className="flex items-center justify-between h-full max-w-7xl mx-auto">
                 <div className="hidden min-[480px]:block">
-                    <Link href="/">
-                        <Image 
+                    <Link href='/'>
+                        <Image
                             src={Logo}
                             alt="Logo GRF Talk"
                             width={170}
@@ -47,8 +46,13 @@ export const Header = () => {
                     </Link>
                 </div>
 
-                <Button className="flex min-[480px]:hidden" variant='outline' size='icon' asChild>
-                    <Link href="/">
+                <Button
+                    className="flex min-[480px]:hidden"
+                    variant='outline'
+                    size='icon'
+                    asChild
+                >
+                    <Link href='/'>
                         <Home className="size-[1.2rem]" />
                     </Link>
                 </Button>
@@ -141,7 +145,6 @@ export const Header = () => {
                         </div>
                     }
                 </div>
-
             </nav>
         </header>
     )

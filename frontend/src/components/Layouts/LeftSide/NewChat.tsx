@@ -1,6 +1,6 @@
-import { NewChatData, NewChatSchema } from "@/lib/schemas/chatSchema"
+import { NewChatData, newChatSchema } from "@/lib/schemas/chatSchema"
 import { useChatStore } from "@/stores/chatStore"
-import { Form, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createChat } from "@/lib/requests"
 import { toast } from "sonner"
@@ -12,16 +12,16 @@ import {
     DrawerDescription,
     DrawerFooter,
     DrawerHeader,
-    DrawerTitle,
-  } from "@/components/ui/drawer"
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+    DrawerTitle
+} from "@/components/ui/drawer"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
 export const NewChat = () => {
-    const {setChat, showNewChat, setShowNewChat} = useChatStore()
+    const { setChat, showNewChat, setShowNewChat } = useChatStore()
 
     const form = useForm<NewChatData>({
-        resolver: zodResolver(NewChatSchema),
+        resolver: zodResolver(newChatSchema),
         defaultValues: {
             email: ""
         }
@@ -30,12 +30,12 @@ export const NewChat = () => {
     const onSubmit = async (values: NewChatData) => {
         const response = await createChat(values)
 
-        if(response.data){
+        if (response.data) {
             setChat(response.data.chat)
             setShowNewChat(false)
             form.setValue("email", "")
 
-            return
+            return;
         }
 
         toast.error(response.error.message, { position: "top-center" })

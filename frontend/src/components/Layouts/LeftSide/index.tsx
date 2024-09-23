@@ -17,7 +17,7 @@ type Props = {
     variant?: "mobile" | "desktop"
 }
 
-export const LeftSide = ({ variant = "desktop"}: Props) => {
+export const LeftSide = ({ variant = "desktop" }: Props) => {
     const { chat: currentChat, chats, setChats, setChat, setShowNewChat } = useChatStore()
     const { user } = useAuthStore()
 
@@ -27,16 +27,15 @@ export const LeftSide = ({ variant = "desktop"}: Props) => {
     const handleGetChats = async () => {
         const response = await getChats()
 
-        if(response.data){
+        if (response.data) {
             setChats(response.data.chats)
         }
     }
 
     const handleFilterChats = () => {
-        if(!chats) return
+        if (!chats) return;
 
-        setChatsFiltered(chats.filter(chats => chats.user.name.toLowerCase()
-            .includes(queryInput.toLowerCase())))
+        setChatsFiltered(chats.filter(chat => chat.user.name.toLowerCase().includes(queryInput.toLowerCase())))
     }
 
     useEffect(() => {
@@ -44,25 +43,25 @@ export const LeftSide = ({ variant = "desktop"}: Props) => {
     }, [])
 
     useEffect(() => {
-        if(!queryInput && chats) setChatsFiltered(chats)
+        if (!queryInput && chats) setChatsFiltered(chats)
     }, [chats])
 
     useEffect(() => {
         const handleUpdateChat = (data: UpdateChatEvent) => {
-            if(user && data.query.users.includes(user.id)){
+            if (user && data.query.users.includes(user.id)) {
                 handleGetChats()
             }
 
-            if(data.type === "delete" && data.query.chat_id === currentChat?.id){
+            if (data.type === "delete" && data.query.chat_id === currentChat?.id) {
                 setChat(null)
-                toast.info('A conversa foi deletada', {position: "top-center"})
+                toast.info('A conversa foi deleteda', { position: "top-center" })
             }
         }
 
-        socket.on('update_chat', handleUpdateChat)
+        socket.on('update_chat', handleUpdateChat);
 
         return () => {
-            socket.off('update_chat', handleUpdateChat)
+            socket.off('update_chat', handleUpdateChat);
         }
     }, [currentChat])
 

@@ -1,5 +1,5 @@
 import { Chat } from "@/types/Chat"
-import { Message } from "postcss"
+import { Message } from "@/types/Message"
 import { create } from "zustand"
 
 export type ChatState = {
@@ -29,10 +29,10 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     chatMessages: null,
     loading: false,
     showChatsList: false,
-    setShowNewChat: (show) => set({showNewChat: show}),
-    setShowChatsList: (show) => set({showChatsList: show}),
+    setShowNewChat: (show) => set({ showNewChat: show }),
+    setShowChatsList: (show) => set({ showChatsList: show }),
     setChat: (chat) => chat?.id != get().chat?.id && set({ chat, chatMessages: null }),
     setChatMessages: (messages) => set({ chatMessages: messages }),
-    setChats: (chats) => set({chats}),
+    setChats: (chats) => set({ chats }),
     setLoading: (loading) => set({ loading })
 }))
